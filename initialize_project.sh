@@ -1,18 +1,45 @@
 
- 1: 
- 2: #!/bin/bash
- 3: 
- 4: # Step 1: Create React project using Vite
- 5: npm create vite@latest dashboard-bg -- --template react
- 6: cd dashboard-bg
- 7: 
- 8: # Step 2: Install TailwindCSS
- 9: touch postcss.config.js
-10: touch tailwind.config.js
-11: #Documentation
-12: 
-13: # Step 3: Install shadcn/ui dependencies
-14: npm install @shadcn/ui react-icons clsx
-15: 
-16: # Optional: Add shadcn/ui components (here as placeholders for further development)
-17: echo "import { Button, Card } from '@shadcn/ui';" > src/components/UIComponents.jsx
+#!/bin/bash
+
+# Initialize React project
+npx create-react-app dashboard-bg
+cd dashboard-bg
+
+# Install dependencies
+npm install tailwindcss postcss autoprefixer
+npm install @shadcn/ui lucide-react recharts framer-motion
+
+# Initialize TailwindCSS
+npx tailwindcss init
+
+# Create extra directory structure
+mkdir components styles assets
+
+# Create tailwind.config.js configuration
+cat <<EOT > tailwind.config.js
+module.exports = {
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
+  theme: {
+    extend: {
+      colors: {
+        dark: '#1a202c',
+      },
+      gradientColorStops: {
+        primary: '#6366f1',
+        secondary: '#e11d48',
+      },
+    },
+  },
+  plugins: [],
+};
+EOT
+
+# Add styles/index.css integration
+cat <<EOT > styles/index.css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+EOT
+
+# Final setup message
+echo "Project initialized and dependencies installed."
